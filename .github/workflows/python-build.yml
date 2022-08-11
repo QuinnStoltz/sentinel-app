@@ -19,13 +19,11 @@ jobs:
           python-version: '3.10.2'
           cache: 'poetry'
       - run: poetry install
-      # - name: Run uvicorn
-      #   run: |
-      #     poetry run uvicorn sentinel.api:app --host 0.0.0.0 --port 8000 --reload
-      # - name: Test w/ curl
-      #   run: |
-      #     curl -XPOST http://localhost:8000/analyze -H "Content-Type: application/json" -d '{"text": "This is a test."}'
-      
+
+      - name: Start the api
+        run: |
+          poetry run uvicorn sentinel.api:app --host 0.0.0.0 --port 8000 --reload &
+
       - name: Unit testing
         run: |
           poetry run coverage run -m pytest tests/test_unit.py
