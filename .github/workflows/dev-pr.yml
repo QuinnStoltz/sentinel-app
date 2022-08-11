@@ -1,4 +1,4 @@
-name: Build
+name: dev-pr
 
 on:
   pull_request:
@@ -8,5 +8,5 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  build-test:
     uses: ./.github/workflows/build.yml
