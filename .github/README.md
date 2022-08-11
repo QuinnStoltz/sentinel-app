@@ -8,7 +8,7 @@
 ## Dependencies
 - [poetry](https://github.com/abatilo/actions-poetry)
 - [python](https://github.com/actions/setup-python)
-- [git push](https://github.com/marketplace/actions/github-push)
+- [deploy to heroku](https://github.com/marketplace/actions/deploy-to-heroku)
 
 
 ## Creating new environment

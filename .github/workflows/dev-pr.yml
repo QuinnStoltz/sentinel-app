@@ -2,7 +2,7 @@ name: Build
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ develop ]
 
 permissions:
   contents: read
@@ -10,8 +10,3 @@ permissions:
 jobs:
   build:
     uses: ./.github/workflows/build.yml
-
-  # deploy:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     # TODO: deploy to heroku
