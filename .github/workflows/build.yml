@@ -1,12 +1,8 @@
-name: Build
+name: Build Sentinel
 
 on:
-  pull_request:
-    branches: [ main ]
-
-permissions:
-  contents: read
-
+  workflow_call:
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -36,8 +32,3 @@ jobs:
       - name: Integration testing
         run: |
           poetry run pytest tests/test_integration.py
-
-  # deploy:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     # TODO: deploy to heroku

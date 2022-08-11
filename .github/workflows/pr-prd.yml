@@ -1,0 +1,17 @@
+name: Build
+
+on:
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     # TODO: deploy to heroku
