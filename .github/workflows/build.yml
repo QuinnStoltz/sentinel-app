@@ -5,6 +5,7 @@ on:
 
 jobs:
   build:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Install poetry
@@ -31,3 +32,4 @@ jobs:
       - name: Integration testing
         run: |
           poetry run pytest tests/test_integration.py
+          
