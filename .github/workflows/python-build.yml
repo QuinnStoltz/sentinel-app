@@ -12,31 +12,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Install poetry
+        run: pipx install poetry
       - uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '3.10.2'
+          cache: 'poetry'
+      - run: poetry install
 
-      - name: Run image
-        uses: abatilo/actions-poetry@v2.0.0
-        with:
-          poetry-version: '1.1.11'
-      - name: View poetry --help
-        run: poetry --help
-      - name: Poetry Install
-        run: poetry install
-
-
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Run uvicorn
+      - name: Start the api
         run: |
-          uvicorn sentinel.api:app --host 0.0.0.0 --port 8000 --reload
-      - name: Test w/ curl
-        run: |
-          curl -XPOST http://localhost:8000/analyze -H "Content-Type: application/json" -d '{"text": "This is a test."}'
-      
+          poetry run uvicorn sentinel.api:app --host 0.0.0.0 --port 8000 --reload &
+
       - name: Unit testing
         run: |
           poetry run coverage run -m pytest tests/test_unit.py
@@ -53,5 +40,4 @@ jobs:
   # deploy:
   #   runs-on: ubuntu-latest
   #   steps:
-  #     # TODO
-  
+  #     # TODO: deploy to heroku
