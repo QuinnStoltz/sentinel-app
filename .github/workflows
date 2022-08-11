@@ -1,0 +1,56 @@
+name: Python application
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          # Semantic version range syntax or exact version of a Python version
+          python-version: '3.10'
+      # You can test your matrix by printing the current Python version
+      - name: Display Python version
+        run: python -c "import sys; print(sys.version)"
+
+      - name: Run image
+        uses: abatilo/actions-poetry@v2.0.0
+        with:
+          poetry-version: '1.1.11'
+      - name: View poetry --help
+        run: poetry --help
+      - name: Poetry Install
+        run: poetry install
+  
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run uvicorn
+        run: |
+          uvicorn sentinel.api:app --host 0.0.0.0 --port 8000 --reload
+      - name: Test w/ curl
+        run: |
+          curl -XPOST http://localhost:8000/analyze -H "Content-Type: application/json" -d '{"text": "This is a test."}'
+      
+      - name: Unit testing
+        run: |
+          poetry run coverage run -m pytest tests/test_unit.py
+          poetry run coverage report --fail-under 90
+
+      - name: Regression testing
+        run: |
+          BASE_URL=http://localhost:8000 poetry run pytest tests/test_regression.py
+
+      - name: Integration testing
+        run: |
+          poetry run pytest tests/test_integration.py
