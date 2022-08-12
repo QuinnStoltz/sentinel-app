@@ -12,19 +12,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: akhileshns/heroku-deploy@v3.12.12
-        with:
-          heroku_app_name: ${{ inputs.HEROKU_APP_NAME }}
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_email: "quinnstoltz@gmail.com"
-          justlogin: true
+      # - uses: akhileshns/heroku-deploy@v3.12.12
+      #   with:
+      #     heroku_app_name: ${{ inputs.HEROKU_APP_NAME }}
+      #     heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+      #     heroku_email: "quinnstoltz@gmail.com"
+      #     justlogin: true
+      # - run: heroku auth:whoami
+      - name: Login to Heroku Container registry
+        run: heroku container:login 
+        env: 
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       - run: heroku auth:whoami
-      # - run: heroku login
-      #   env: 
-      #     HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      # - run: heroku git:remote --app=${{ inputs.HEROKU_APP_NAME }}
-      #   env: 
-      #     HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      # - run: git push heroku
-      #   env: 
-      #     HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        env: 
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      - run: heroku login
+        env: 
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      - run: heroku git:remote --app=${{ inputs.HEROKU_APP_NAME }}
+        env: 
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      - run: git push heroku
+        env: 
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
