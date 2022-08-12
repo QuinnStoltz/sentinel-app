@@ -12,13 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      # - uses: akhileshns/heroku-deploy@v3.12.12
-      #   with:
-      #     heroku_app_name: ${{ inputs.HEROKU_APP_NAME }}
-      #     heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-      #     heroku_email: "quinnstoltz@gmail.com"
-      #     justlogin: true
-      # - run: heroku auth:whoami
+      - uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_app_name: ${{ inputs.HEROKU_APP_NAME }}
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_email: "quinnstoltz@gmail.com"
+      - run: git branch -a
       # - name: Login to Heroku Container registry
       #   run: |
       #     heroku auth:login 
@@ -37,6 +36,6 @@ jobs:
           git branch -a
         env: 
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      - run: git push heroku main
+      - run: git push heroku
         env: 
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
