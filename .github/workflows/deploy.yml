@@ -23,7 +23,7 @@ jobs:
       #     heroku_app_name: ${{ inputs.HEROKU_APP_NAME }}
       #     heroku_email: "quinnstoltz@gmail.com"
       #     branch: ${{ steps.extract_branch.outputs.branch }}
-      - uses: CDNievas/heroku-action@v1.0 # This is the action
+      - uses: CDNievas/heroku-action@v1.0
         with:
           heroku_email: "quinnstoltz@gmail.com"
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
