@@ -16,6 +16,9 @@ jobs:
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
-      - run: git remote add heroku https://git.heroku.com/${{ inputs.HEROKU_APP_NAME }}.git
-      # - run: heroku git:remote -a example-app
-      - run: git push heroku ${{ steps.extract_branch.outputs.branch }}:main
+      # - name: Install Heroku
+      #   run: curl https://cli-assets.heroku.com/install.sh | sh
+      - run: heroku git:remote --app=obscure-waters-24658
+      # - run: heroku git:remote --app=${{ inputs.HEROKU_APP_NAME }}
+      - run: git push heroku develop:main
+      # - run: git push heroku ${{ steps.extract_branch.outputs.branch }}:main
