@@ -6,9 +6,6 @@ on:
       HEROKU_APP_NAME:
         required: true
         type: string
-      secrets:
-        HEROKU_API_KEY:
-          required: true
 
 jobs:
   deploy:
