@@ -46,5 +46,7 @@ jobs:
         env:
           # HEROKU_APP_NAME: ${{ inputs.HEROKU_APP_NAME }}
           HEROKU_APP_NAME: obscure-waters-24658
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
       - name: Push to Heroku
         run: git push heroku develop:main
