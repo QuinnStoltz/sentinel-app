@@ -16,15 +16,11 @@ jobs:
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
-      # - run: heroku git:remote -a ${{ inputs.HEROKU_APP_NAME }}
-      # - run: git remote add heroku https://git.heroku.com/${{ inputs.HEROKU_APP_NAME }}.git
-      # - run: git remote add heroku https://git.heroku.com/obscure-waters-39652.git
-      - run: git remote add heroku git@heroku.com:obscure-waters-39652.git
-      # - run: git push heroku ${{ steps.extract_branch.outputs.branch }}:master
+      - run: git remote add heroku https://git.heroku.com/${{ inputs.HEROKU_APP_NAME }}.git
       - uses: akhileshns/heroku-deploy@v3.11.10
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ${{ inputs.HEROKU_APP_NAME }}
           heroku_email: "quinnstoltz@gmail.com"
           dontautocreate: true
-          branch: ${{ steps.extract_branch.outputs.branch }}
+          branch: develop
