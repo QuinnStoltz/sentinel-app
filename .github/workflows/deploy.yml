@@ -1,4 +1,4 @@
-name: Build Sentinel
+name: Deploy Sentinel
 
 on:
   workflow_call:
@@ -7,31 +7,15 @@ on:
         required: true
         type: string
 
+permissions:
+  contents: read
+  
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      # - uses: akhileshns/heroku-deploy@v3.12.12
-      #   with:
-      #     heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-      #     heroku_app_name: ${{ inputs.HEROKU_APP_NAME }}
-      #     heroku_email: ${{ secrets.HEROKU_EMAIL }}
-      # - uses: akhileshns/heroku-deploy@v3.12.12
-      #   with:
-      #     heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-      #     heroku_app_name: ${{ inputs.HEROKU_APP_NAME }}
-      #     heroku_email: ${{ secrets.HEROKU_EMAIL }}
-      #     justlogin: true
-      # - run: heroku git:remote --app=${{ inputs.HEROKU_APP_NAME }}
-      #   env:
-      #     HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-
-      - run: |
-          heroku create --app=${{ inputs.HEROKU_APP_NAME }}
-          heroku buildpacks:clear
-          heroku buildpacks:add https://github.com/moneymeets/python-poetry-buildpack.git
-          heroku buildpacks:add heroku/python
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      - run: git push heroku develop:main
+      - uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ inputs.HEROKU_APP_NAME }}
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
