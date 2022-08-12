@@ -11,4 +11,4 @@ jobs:
   deploy:
     uses: ./.github/workflows/deploy.yml
     with:
-      HEROKU_APP_NAME: 'obscure-waters-39652'
+      HEROKU_APP_NAME: 'obscure-waters-24658'
