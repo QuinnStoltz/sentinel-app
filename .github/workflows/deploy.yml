@@ -30,15 +30,13 @@ jobs:
       # - run: heroku login
       #   env: 
       #     HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      # - name: Create remote
-      #   run: |
-      #     heroku git:remote --remote=heroku --app=${{ inputs.HEROKU_APP_NAME }}
-      #     git branch -a
-      #   env: 
-      #     HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      - run: git remote add heroku https://git.heroku.com/${{ inputs.HEROKU_APP_NAME }}.git
+      - name: Create remote
+        run: heroku git:remote --remote=heroku --app=${{ inputs.HEROKU_APP_NAME }}
         env: 
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      # - run: git remote add heroku https://git.heroku.com/${{ inputs.HEROKU_APP_NAME }}.git
+      #   env: 
+      #     HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       - run: git remote -v
       - run: git push heroku
         env: 
