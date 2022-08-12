@@ -1,8 +1,10 @@
 ## Workflow
-1. Create new branch for code, new-branch
+1. Create new branch for code
 1. Add code to new-branch
-1. Create PR from new-branch to main -> triggers build, then test
-1. Merge PR into main (check from test step must pass to merge) -> triggers deploy
+1. Create PR from new-branch to develop -> triggers build, then test
+1. Merge PR into develop (check from test step must pass to merge) -> triggers deploy to dev
+1. Create PR from develop to main -> triggers build, then test
+1. Merge PR into main (check from test step must pass to merge) -> triggers deploy to prd
 
 
 ## Dependencies
