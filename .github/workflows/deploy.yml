@@ -20,15 +20,15 @@ jobs:
       #     justlogin: true
       # - run: heroku auth:whoami
       - name: Login to Heroku Container registry
-        run: heroku container:login 
+        run: heroku auth:login 
         env: 
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       - run: heroku auth:whoami
         env: 
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      - run: heroku login
-        env: 
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      # - run: heroku login
+      #   env: 
+      #     HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       - run: heroku git:remote --app=${{ inputs.HEROKU_APP_NAME }}
         env: 
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
