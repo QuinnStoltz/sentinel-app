@@ -19,12 +19,12 @@ jobs:
       #     heroku_email: "quinnstoltz@gmail.com"
       #     justlogin: true
       # - run: heroku auth:whoami
-      - name: Login to Heroku Container registry
-        run: |
-          heroku auth:login 
-          heroku auth:whoami
-        env: 
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      # - name: Login to Heroku Container registry
+      #   run: |
+      #     heroku auth:login 
+      #     heroku auth:whoami
+      #   env: 
+      #     HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       # - run: heroku auth:whoami
       #   env: 
       #     HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
