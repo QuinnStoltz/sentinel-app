@@ -11,19 +11,12 @@ jobs:
   deploy:
     # uses: ./.github/workflows/deploy.yml
     # with:
-    #   HEROKU_APP_NAME: 'obscure-waters-216544'
+    #   HEROKU_APP_NAME: 'obscure-waters-24658'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      # - uses: akhileshns/heroku-deploy@v3.12.12
-      #   with:
-      #     heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-      #     heroku_app_name: obscure-waters-216544
-      #     heroku_email: ${{ secrets.HEROKU_EMAIL }}
-      - uses: CDNievas/heroku-action@v1.0 # This is the action
+      - uses: akhileshns/heroku-deploy@v3.12.12
         with:
-          heroku_email: ${{ secrets.HEROKU_EMAIL }}
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: obscure-waters-216544
-          # branch: develop
-          buildpacks: "['https://github.com/moneymeets/python-poetry-buildpack.git', 'heroku/python']"
+          heroku_app_name: obscure-waters-24658
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
