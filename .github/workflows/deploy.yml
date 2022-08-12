@@ -34,9 +34,9 @@ jobs:
       - name: Create remote
         run: |
           heroku git:remote --remote=heroku --app=${{ inputs.HEROKU_APP_NAME }}
-          git branch -r
+          git branch -a
         env: 
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      - run: git push heroku
+      - run: git push heroku main
         env: 
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
