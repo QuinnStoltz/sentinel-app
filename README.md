@@ -2,7 +2,34 @@
 
 Sentinel is an application written in Python that may be used to perform sentiment analysis on a piece of text. It leverages an external API for this purpose and provides a safe default when the API is unavailable.
 
+## Code Workflow
+----------------
+
+1. Create new-branch for code
+1. Add code to new-branch
+1. Create PR from new-branch to develop -> triggers tests
+1. Merge PR into develop (tests must be passing) -> triggers deploy to dev
+1. Create PR from develop to main -> triggers tests
+1. Merge PR into main (tests must be passing) -> triggers deploy to prd
+
+
+### Dependencies
+- [poetry](https://github.com/abatilo/actions-poetry)
+- [python](https://github.com/actions/setup-python)
+- [deploy to heroku](https://github.com/marketplace/actions/deploy-to-heroku)
+
+
+### Creating new environment
+~~~ bash
+heroku create --app=<app-name>
+heroku buildpacks:clear --app=<app-name>
+heroku buildpacks:add https://github.com/moneymeets/python-poetry-buildpack.git --app=<app-name>
+heroku buildpacks:add heroku/python --app=<app-name>
+~~~
+
+
 ## Commands
+-----------
 
 The following commands describe how the application may be built, run and tested. Note that [Python 3.10](https://docs.python.org/3/whatsnew/3.10.html) and [Poetry](https://python-poetry.org/) are required.
 
@@ -44,3 +71,5 @@ BASE_URL=http://localhost:8000 poetry run pytest tests/test_regression.py
 ```sh
 poetry run pytest tests/test_integration.py
 ```
+
+CHANGEME

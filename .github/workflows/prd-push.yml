@@ -9,7 +9,11 @@ permissions:
 
 jobs:
   deploy:
-    uses: ./.github/workflows/deploy.yml
-    with:
-      HEROKU_APP_NAME: 'sentinel-prd-98357'
-      HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: quiet-fortress-43638
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
