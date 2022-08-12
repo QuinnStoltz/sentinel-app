@@ -16,11 +16,10 @@ jobs:
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
-      - run: git remote add heroku https://git.heroku.com/${{ inputs.HEROKU_APP_NAME }}.git
+      # - run: git remote add heroku https://git.heroku.com/${{ inputs.HEROKU_APP_NAME }}.git
       - uses: akhileshns/heroku-deploy@v3.11.10
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ${{ inputs.HEROKU_APP_NAME }}
           heroku_email: "quinnstoltz@gmail.com"
-          dontautocreate: true
-          branch: develop
+          branch: ${{ steps.extract_branch.outputs.branch }}
