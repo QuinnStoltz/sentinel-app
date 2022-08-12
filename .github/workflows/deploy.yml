@@ -25,11 +25,7 @@ jobs:
           heroku_email: "quinnstoltz@gmail.com"
           justlogin: true
       - run: heroku git:remote --app=obscure-waters-24658
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       # - run: git remote add heroku https://git.heroku.com/obscure-waters-39652.git
       # - run: heroku git:remote --app=${{ inputs.HEROKU_APP_NAME }}
       - run: git push heroku develop:main
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       # - run: git push heroku ${{ steps.extract_branch.outputs.branch }}:main
