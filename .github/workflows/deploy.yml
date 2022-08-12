@@ -16,11 +16,16 @@ jobs:
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
-      # - name: Install Heroku
-      #   run: curl https://cli-assets.heroku.com/install.sh | sh
+      - uses: akhileshns/heroku-deploy@v3.11.10
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ inputs.HEROKU_APP_NAME }}
+          heroku_email: "quinnstoltz@gmail.com"
+          justlogin: true
       - run: heroku git:remote --app=obscure-waters-24658
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      # - run: git remote add heroku https://git.heroku.com/obscure-waters-39652.git
       # - run: heroku git:remote --app=${{ inputs.HEROKU_APP_NAME }}
       - run: git push heroku develop:main
         env:
