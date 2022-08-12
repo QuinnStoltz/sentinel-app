@@ -17,4 +17,4 @@ jobs:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ${{ inputs.HEROKU_APP_NAME }}
           heroku_email: "quinnstoltz@gmail.com"
-          usedocker: true
+          dontautocreate: true
