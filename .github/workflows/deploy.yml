@@ -16,16 +16,35 @@ jobs:
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
-      - name: Install heroku
-        run: curl https://cli-assets.heroku.com/install.sh | sh
-      - uses: akhileshns/heroku-deploy@v3.12.12
-        with:
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: ${{ inputs.HEROKU_APP_NAME }}
-          heroku_email: "quinnstoltz@gmail.com"
-          justlogin: true
-      - run: heroku git:remote --app=obscure-waters-24658
+      # - uses: akhileshns/heroku-deploy@v3.12.12
+      #   with:
+      #     heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+      #     heroku_app_name: ${{ inputs.HEROKU_APP_NAME }}
+      #     heroku_email: "quinnstoltz@gmail.com"
+      #     justlogin: true
+      # - run: heroku git:remote --app=obscure-waters-24658
       # - run: git remote add heroku https://git.heroku.com/obscure-waters-39652.git
       # - run: heroku git:remote --app=${{ inputs.HEROKU_APP_NAME }}
-      - run: git push heroku develop:main
+      # - run: git push heroku develop:main
       # - run: git push heroku ${{ steps.extract_branch.outputs.branch }}:main
+
+      - name: Heroku login credentials
+        run: |
+          cat > ~/.netrc <<EOF
+            machine api.heroku.com
+              login $HEROKU_EMAIL
+              password $HEROKU_API_KEY
+            machine git.heroku.com
+              login $HEROKU_EMAIL
+              password $HEROKU_API_KEY
+          EOF
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
+      - name: Add Heroku remote
+        run: heroku git:remote --app $HEROKU_APP_NAME
+        env:
+          # HEROKU_APP_NAME: ${{ inputs.HEROKU_APP_NAME }}
+          HEROKU_APP_NAME: obscure-waters-24658
+      - name: Push to Heroku
+        run: git push heroku develop:main
