@@ -12,6 +12,12 @@ Sentinel is an application written in Python that may be used to perform sentime
 1. Create PR from develop to main -> triggers tests
 1. Merge PR into main (tests must be passing) -> triggers deploy to prd
 
+### Design Goals
+- The develop/main branches should always represent what is present on dev/prd environments
+- Deploy processes should have gated access to those responsible for changes (CODEOWNERS)
+- Devs should get feedback on code before a PR is merged. Pylint reported too many errors, but tests are in place and report status on PR.
+- Actions should be reusable where possible
+
 
 ### Dependencies
 - [poetry](https://github.com/abatilo/actions-poetry)
